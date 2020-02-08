@@ -20,7 +20,10 @@ class Dashboard extends React.Component {
     try {
       this.props.socket.on("newData", this.socketDataCallback);
       // const response = await fetchPiData("2020-02-04T15:30:00.000Z");
-      const response = await fetchPiData(this.state.piDataFileRequestName);
+      let fileName = moment(this.state.piDataFileRequestName)
+        .startOf("hour")
+        .toISOString();
+      const response = await fetchPiData(fileName);
       let fileContent = response.data.fileContent
         ? response.data.fileContent
         : [];
@@ -30,7 +33,11 @@ class Dashboard extends React.Component {
       this.setState({ fileContent, isLoading: false });
     } catch (error) {
       console.log(error);
-      this.setState({ error: true, errorMessage: error.message });
+      this.setState({
+        error: true,
+        errorMessage: error.message,
+        isLoading: false
+      });
     }
   }
 
@@ -41,7 +48,11 @@ class Dashboard extends React.Component {
 
   async _fetchPiData(date) {
     try {
-      const response = await fetchPiData(moment(date).toISOString());
+      const response = await fetchPiData(
+        moment(date)
+          .startOf("hour")
+          .toISOString()
+      );
       let fileContent = response.data.fileContent
         ? response.data.fileContent
         : [];
@@ -51,7 +62,11 @@ class Dashboard extends React.Component {
       this.setState({ fileContent, isLoading: false });
     } catch (error) {
       console.log(error);
-      this.setState({ error: true, errorMessage: error.message });
+      this.setState({
+        error: true,
+        errorMessage: error,
+        isLoading: false
+      });
     }
   }
 
@@ -69,6 +84,10 @@ class Dashboard extends React.Component {
     }
   };
 
+  handleMessageDismiss = () => {
+    this.setState({ error: false, errorMessage: "" });
+  };
+
   socketDataCallback(data) {
     console.log(data);
   }
@@ -79,9 +98,12 @@ class Dashboard extends React.Component {
         isLoading={this.state.isLoading}
         fileContent={this.state.fileContent}
         rawFrameToggle={this.state.rawFrameToggle}
+        error={this.state.error}
+        errorMessage={this.state.errorMessage}
         piDataFileRequestName={this.state.piDataFileRequestName}
         rawFrameToggleHandler={this.rawFrameToggleHandler}
         datePickerHandler={this.datePickerHandler}
+        handleMessageDismiss={this.handleMessageDismiss}
       />
     );
   }

@@ -8,7 +8,8 @@ import {
   Label,
   Table,
   Dimmer,
-  Loader
+  Loader,
+  Message
 } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 // import JSONPretty from "react-json-pretty";
@@ -30,6 +31,14 @@ const DashboardComponent = props => {
           dateFormat="MMMM d, yyyy h:mm aa"
         />
       </div>
+      {props.error ? (
+        <Message negative onDismiss={props.handleMessageDismiss}>
+          <Message.Header>Something went wrong</Message.Header>
+          <Message.Content>{props.errorMessage}</Message.Content>
+        </Message>
+      ) : (
+        ""
+      )}
       {props.isLoading ? (
         <Dimmer active>
           <Loader>Fetching Data</Loader>
@@ -55,6 +64,7 @@ const DashboardComponent = props => {
           <Table celled structured>
             <Table.Header>
               <Table.Row>
+                <Table.HeaderCell>Frame Timestamp</Table.HeaderCell>
                 <Table.HeaderCell>Directed Probes</Table.HeaderCell>
                 <Table.HeaderCell>Null Probes</Table.HeaderCell>
               </Table.Row>
@@ -63,6 +73,7 @@ const DashboardComponent = props => {
               {props.fileContent.map((element, key) => {
                 return (
                   <Table.Row key={key}>
+                    <Table.Cell>{element.timestamp}</Table.Cell>
                     <Table.Cell>
                       <Table>
                         <Table.Header>
