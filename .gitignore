@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 
-/src/configs/*
+/src/configs/*.js
 .idea
