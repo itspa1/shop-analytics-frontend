@@ -8,7 +8,7 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      fileContent: "",
+      fileContent: [],
       error: false,
       errorMessage: "",
       rawFrameToggle: false,
@@ -30,12 +30,19 @@ class Dashboard extends React.Component {
       fileContent = fileContent.map(element => {
         return JSON.parse(element);
       });
-      this.setState({ fileContent, isLoading: false });
+      this.setState({
+        fileContent,
+        isLoading: false,
+        error: false,
+        errorMessage: ""
+      });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       this.setState({
         error: true,
-        errorMessage: error.message,
+        errorMessage: error.response.data.error
+          ? error.response.data.error
+          : error.message,
         isLoading: false
       });
     }
@@ -59,12 +66,19 @@ class Dashboard extends React.Component {
       fileContent = fileContent.map(element => {
         return JSON.parse(element);
       });
-      this.setState({ fileContent, isLoading: false });
+      this.setState({
+        fileContent,
+        isLoading: false,
+        error: false,
+        errorMessage: ""
+      });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       this.setState({
         error: true,
-        errorMessage: error,
+        errorMessage: error.response.data.error
+          ? error.response.data.error
+          : error.message,
         isLoading: false
       });
     }
@@ -88,9 +102,17 @@ class Dashboard extends React.Component {
     this.setState({ error: false, errorMessage: "" });
   };
 
-  socketDataCallback(data) {
-    console.log(data);
-  }
+  socketDataCallback = data => {
+    // console.log(data);
+    //append the incoming new data on the socket to the existing state which will then re render the component with the new state
+    if (
+      moment(data.timestamp, "YYYY-MM-DDTHH:mm:ssZ")
+        .startOf("hour")
+        .isSame(moment(this.state.piDataFileRequestName).startOf("hour"))
+    ) {
+      this.setState({ fileContent: [...this.state.fileContent, data] });
+    }
+  };
 
   render() {
     return (
