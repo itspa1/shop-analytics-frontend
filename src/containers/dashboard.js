@@ -75,6 +75,7 @@ class Dashboard extends React.Component {
     } catch (error) {
       // console.log(error);
       this.setState({
+        fileContent: [],
         error: true,
         errorMessage: error.response.data.error
           ? error.response.data.error
