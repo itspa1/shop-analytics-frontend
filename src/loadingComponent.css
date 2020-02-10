@@ -1,0 +1,22 @@
+.errorPageBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100% - 52px);
+  margin-top: 150px;
+}
+
+.errorPageBody > div {
+  width: 600px;
+  text-align: center;
+  border: 2px solid #f57c00;
+  color: #f57c00;
+  font-size: 25px;
+  padding: 30px 20px;
+  display: inline-block;
+  letter-spacing: 1.3px;
+  line-height: 1.28;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 1px 1px 4px 3px #ddd;
+}
