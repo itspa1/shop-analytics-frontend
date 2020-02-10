@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
+import { socketUrl } from "./configs/env";
 import SocketContext from "./context/socket";
 import Dashboard from "./containers/dashboard";
 import io from "socket.io-client";
 
-const socket = io("localhost:8000");
+const socket = io(socketUrl);
 
 function App() {
   return (
