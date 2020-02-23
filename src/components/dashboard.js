@@ -12,6 +12,7 @@ import {
   Message
 } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 // import JSONPretty from "react-json-pretty";
 
 const DashboardComponent = props => {
@@ -22,13 +23,14 @@ const DashboardComponent = props => {
         <Checkbox toggle onChange={props.rawFrameToggleHandler} />
         <DatePicker
           placeholderText="click to select date"
-          showTimeSelect
           selected={props.piDataFileRequestName}
           onChange={props.datePickerHandler}
-          timeFormat="h:mm aa"
-          timeIntervals={60}
-          timeCaption="time"
-          dateFormat="MMMM d, yyyy h:mm aa"
+          dateFormat="MMMM d, yyyy"
+          // minDate={moment()
+          // .subtract(1, "week")
+          // .toDate()}
+          //TODO: Uncomment this before commiting
+          maxDate={moment().toDate()}
         />
       </div>
       {props.error ? (
