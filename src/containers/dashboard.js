@@ -2,6 +2,7 @@ import React from "react";
 import { fetchPiData } from "../api/piData";
 import DashboardComponent from "../components/dashboard";
 import moment from "moment";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -95,9 +96,9 @@ class Dashboard extends React.Component {
     }
   }
 
-  rawFrameToggleHandler = (event, object) => {
+  rawFrameToggleHandler = (event) => {
     event.preventDefault();
-    this.setState({ rawFrameToggle: object.checked });
+    this.setState({ rawFrameToggle: !this.state.rawFrameToggle });
   };
 
   datePickerHandler = date => {

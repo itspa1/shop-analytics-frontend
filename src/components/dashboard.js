@@ -1,22 +1,21 @@
-
 import React from "react";
 import {
-  Container,
   Segment,
   SegmentGroup,
   Header,
-  Checkbox,
-  Label,
-  Table,
   Dimmer,
   Loader,
   Message
 } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import moment from 'moment'
-import { render } from 'react-dom';
-import { TableSimple, TablePagination } from 'react-pagination-table';
-const Heading = ["Timestamp", "MAC_ID", "RSSI", "SSID"];
+// import { render } from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import $ from 'jquery';
+// import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup } from 'react-bootstrap';
+import { MDBDataTable } from 'mdbreact';
 
 
 
@@ -27,6 +26,37 @@ const DashboardComponent = props => {
   let directedPings = [];
   let nullPings = [];
   let pings = [];
+
+  const data = {
+    columns: [
+      {
+        label: 'Timestamp',
+        field: 'timestamp',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'MAC ID',
+        field: 'mac_id',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'RSSI',
+        field: 'rssi',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'SSID',
+        field: 'ssid',
+        sort: 'asc',
+        width: 50
+      },
+    ],
+    rows: pings
+  };
+
   if (!props.error && !props.isLoading) {
     fileContent = props.fileContent
     if (fileContent.length) {
@@ -46,32 +76,40 @@ const DashboardComponent = props => {
       })
     }
   }
-  console.log(fileContent);
-  console.log(directedPings);
-  console.log(nullPings);
-  console.log(pings);
-  console.log(directedProbePingCount);
   return (
 
-    < Container >
-      <div className="ui fitted">
-        <Label>Toggle Raw frame view</Label>
-        <Checkbox toggle onChange={props.rawFrameToggleHandler} />
-        <DatePicker
-          placeholderText="click to select date"
-          // showTimeSelect
-          selected={props.piDataFileRequestName}
-          onChange={props.datePickerHandler}
-          // timeFormat="h:mm aa"
-          // timeIntervals={60}
-          // timeCaption="time"
-          // minDate={moment()
-          //   .subtract(1, "week")
-          //   .toDate()}
-          dateFormat="MMMM d, yyyy"
-          maxDate={moment().toDate()}
-        />
-      </div>
+    <Container fluid >
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar.Brand href="#home"><h2>PI-SNIFF</h2></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <ButtonGroup toggle className="mb-2" onChange={props.rawFrameToggleHandler}>
+              <ToggleButton variant="light" type="checkbox">
+                Raw Frames
+               </ToggleButton>
+            </ButtonGroup>
+          </Nav>
+          <Nav className="mr-auto">
+            <h2><Badge className="mr-2" variant="light">Select Date</Badge></h2>
+            <DatePicker className="mt-2"
+              placeholderText="click to select date"
+              // showTimeSelect
+              selected={props.piDataFileRequestName}
+              onChange={props.datePickerHandler}
+              // timeFormat="h:mm aa"
+              // timeIntervals={60}
+              // timeCaption="time"
+              // minDate={moment()
+              //   .subtract(1, "week")
+              //   .toDate()}
+              dateFormat="MMMM d, yyyy"
+              maxDate={moment().toDate()}
+            />
+          </Nav>
+
+        </Navbar.Collapse>
+      </Navbar>
       {
         props.error ? (
           <Message negative onDismiss={props.handleMessageDismiss}>
@@ -105,56 +143,48 @@ const DashboardComponent = props => {
               })}
             </SegmentGroup>
           ) : (
-              <div>
-                <div >
-                  <table id="countTable">
-                    <thead>
-                      <tr>
-                        <th>
-                          No.of Directed probes
-                      </th>
-                        <th>
-                          No.of Null probes
-                      </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          {directedProbePingCount}
-                        </td>
-                        <td>
-                          {nullProbePingCount}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div id="tablecontent" >
-
-
-
-                  <TablePagination
-
-                    headers={Heading}
-                    data={pings}
-                    columns="timestamp.mac_id.rssi.ssid"
-                    perPageItemCount={10}
-                    totalCount={pings.length}
-                  />
-
-
-                </div>
-              </div>
-
-
+              <Container fluid>
+                <Row>
+                  <div className="col-12 order-sm-last col-md-4">
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">No.of Directed Probes</h2>
+                      <div className="card-body">
+                        <h2>{directedProbePingCount}</h2>
+                      </div>
+                    </div>
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">No.of Null Probes</h2>
+                      <div className="card-body">
+                        <h2>{nullProbePingCount}</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 order-sm-first col-md-8">
+                    <MDBDataTable
+                      entriesOptions={[20, 50, 100, 200, 500]}
+                      maxHeight="380px"
+                      pagesAmount={5}
+                      noBottomColumns
+                      responsive
+                      striped
+                      bordered
+                      small
+                      hover
+                      data={data}
+                      scrollX
+                      scrollY
+                      entries={20}
+                    />
+                  </div>
+                </Row>
+              </Container>
             )
         ) : (
               <Header as="h3">No Content</Header>
             )
       }
       {/* {console.log(props.fileContent)} */}
-    </Container >
+    </Container>
   );
 };
 
