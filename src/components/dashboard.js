@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import moment from 'moment'
 // import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import $ from 'jquery';
+//import $ from 'jquery';
 // import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup } from 'react-bootstrap';
@@ -56,6 +56,7 @@ const DashboardComponent = props => {
     ],
     rows: pings
   };
+  var UniqueNames = []
 
   if (!props.error && !props.isLoading) {
     fileContent = props.fileContent
@@ -63,6 +64,7 @@ const DashboardComponent = props => {
       fileContent.forEach((element, index) => {
         if (element.frame.probes.directed.length) {
           directedProbePingCount += element.frame.probes.directed.length
+          UniqueNames.push(element.frame.probes.directed.map(function (d) { return d.ssid; }))
           directedPings.push(...element.frame.probes.directed)
         }
         if (element.frame.probes.null.length) {
@@ -76,6 +78,12 @@ const DashboardComponent = props => {
       })
     }
   }
+  var merged = [].concat.apply([], UniqueNames);
+  var names = merged.filter((item, i, ar) => ar.indexOf(item) === i);
+  const listItems = names.map((name) =>
+    <li key={name}>{name}</li>
+  );
+
   return (
 
     <Container fluid >
@@ -158,6 +166,12 @@ const DashboardComponent = props => {
                         <h2>{nullProbePingCount}</h2>
                       </div>
                     </div>
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">Unique SSID</h2>
+                      <div className="card-body">
+                        <ul>{listItems}</ul>
+                      </div>
+                    </div>
                   </div>
                   <div className="col-12 order-sm-first col-md-8">
                     <MDBDataTable
@@ -184,7 +198,7 @@ const DashboardComponent = props => {
             )
       }
       {/* {console.log(props.fileContent)} */}
-    </Container>
+    </Container >
   );
 };
 
