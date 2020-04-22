@@ -1,23 +1,8 @@
 import React from "react";
-import {
-  Segment,
-  SegmentGroup,
-  Header,
-  Dimmer,
-  Loader,
-  Message
-} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import moment from 'moment'
-// import { render } from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-//import $ from 'jquery';
-// import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup } from 'react-bootstrap';
+import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup, Spinner, Modal } from 'react-bootstrap';
 import { MDBDataTable } from 'mdbreact';
-
-
 
 const DashboardComponent = props => {
   let directedProbePingCount = 0;
@@ -26,6 +11,8 @@ const DashboardComponent = props => {
   let directedPings = [];
   let nullPings = [];
   let pings = [];
+  var useState;
+
 
   const data = {
     columns: [
@@ -120,24 +107,28 @@ const DashboardComponent = props => {
       </Navbar>
       {
         props.error ? (
-          <Message negative onDismiss={props.handleMessageDismiss}>
-            <Message.Header>Something went wrong</Message.Header>
-            <Message.Content>{props.errorMessage}</Message.Content>
-          </Message>
+          <Modal.Dialog size="lg">
+            <Modal.Header closeButton onHide={props.handleMessageDismiss}>
+              <Modal.Title>Something went wrong</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>{props.errorMessage}</p>
+            </Modal.Body>
+          </Modal.Dialog>
         ) : (
             ""
           )
       }
       {
         props.isLoading ? (
-          <Dimmer active>
-            <Loader>Fetching Data</Loader>
-          </Dimmer>
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Fetching Data</span>
+          </Spinner>
         ) : fileContent.length ? (
           props.rawFrameToggle ? (
-            <SegmentGroup piled>
+            <div>
               {fileContent.map((element, key) => {
-                return <Segment key={key}>{JSON.stringify(element)}</Segment>;
+                return <div id="raw" className="col-12"><p> key={key}>{JSON.stringify(element)}</p></div>;
                 // return (
                 //   <JSONPretty
                 //     id="json-pretty"
@@ -149,7 +140,7 @@ const DashboardComponent = props => {
                 //   ></JSONPretty>
                 // );
               })}
-            </SegmentGroup>
+            </div>
           ) : (
               <Container fluid>
                 <Row>
@@ -169,7 +160,7 @@ const DashboardComponent = props => {
                     <div className="card">
                       <h2 className="card-header bg-dark text-white">Unique SSID</h2>
                       <div className="card-body">
-                        <ul>{listItems}</ul>
+                        <ul><h5>{listItems}</h5></ul>
                       </div>
                     </div>
                   </div>
@@ -194,7 +185,9 @@ const DashboardComponent = props => {
               </Container>
             )
         ) : (
-              <Header as="h3">No Content</Header>
+              <h1>
+                <Badge variant="dark">No Content</Badge>
+              </h1>
             )
       }
       {/* {console.log(props.fileContent)} */}

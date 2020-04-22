@@ -2,14 +2,6 @@ import React from "react";
 import { fetchPiData } from "../api/piData";
 import DashboardComponent from "../components/dashboard";
 import moment from "moment";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-
-
-
-
-
 
 
 class Dashboard extends React.Component {
