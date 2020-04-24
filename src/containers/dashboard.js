@@ -3,6 +3,7 @@ import { fetchPiData } from "../api/piData";
 import DashboardComponent from "../components/dashboard";
 import moment from "moment";
 
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class Dashboard extends React.Component {
       error: false,
       errorMessage: "",
       rawFrameToggle: false,
+      numberOfLines: "",
       piDataFileRequestName: moment().toDate() //"2020-02-04T15:30:00.000Z" //convert this to utc while sending the request
     };
   }
@@ -21,7 +23,7 @@ class Dashboard extends React.Component {
       this.props.socket.on("newData", this.socketDataCallback);
       // const response = await fetchPiData("2020-02-04T15:30:00.000Z");
       let fileName = moment(this.state.piDataFileRequestName)
-        .startOf("hour")
+        .startOf("day")
         .toISOString();
       const response = await fetchPiData(fileName);
       let fileContent = response.data.fileContent
@@ -53,12 +55,13 @@ class Dashboard extends React.Component {
     this.props.socket.removeAllListeners("newData");
   }
 
-  async _fetchPiData(date) {
+  async _fetchPiData(date, numberOfLines) {
     try {
       const response = await fetchPiData(
         moment(date)
-          .startOf("hour")
-          .toISOString()
+          .startOf("day")
+          .toISOString(),
+        numberOfLines
       );
       let fileContent = response.data.fileContent
         ? response.data.fileContent
@@ -85,16 +88,17 @@ class Dashboard extends React.Component {
     }
   }
 
-  rawFrameToggleHandler = (event, object) => {
+  rawFrameToggleHandler = (event) => {
     event.preventDefault();
-    this.setState({ rawFrameToggle: object.checked });
+    this.setState({ rawFrameToggle: !this.state.rawFrameToggle });
   };
 
   datePickerHandler = date => {
+    let numberOfLines = this.state.numberOfLines;
     // console.log(moment(date).toISOString());
     if (!!date) {
       this.setState({ piDataFileRequestName: date, isLoading: true }, () =>
-        this._fetchPiData(date)
+        this._fetchPiData(date, numberOfLines)
       );
     }
   };
@@ -108,10 +112,14 @@ class Dashboard extends React.Component {
     //append the incoming new data on the socket to the existing state which will then re render the component with the new state
     if (
       moment(data.timestamp, "YYYY-MM-DDTHH:mm:ssZ")
-        .startOf("hour")
-        .isSame(moment(this.state.piDataFileRequestName).startOf("hour"))
+        .startOf("day")
+        .isSame(moment(this.state.piDataFileRequestName).startOf("day"))
     ) {
-      this.setState({ fileContent: [...this.state.fileContent, data] });
+      this.setState({
+        fileContent: [...this.state.fileContent, data],
+        error: false,
+        errorMessage: ""
+      });
     }
   };
 

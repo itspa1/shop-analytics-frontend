@@ -1,155 +1,199 @@
 import React from "react";
-import {
-  Container,
-  Segment,
-  SegmentGroup,
-  Header,
-  Checkbox,
-  Label,
-  Table,
-  Dimmer,
-  Loader,
-  Message
-} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
-// import JSONPretty from "react-json-pretty";
+import moment from 'moment'
+import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup, Spinner, Modal } from 'react-bootstrap';
+import { MDBDataTable } from 'mdbreact';
 
 const DashboardComponent = props => {
+  let directedProbePingCount = 0;
+  let nullProbePingCount = 0;
+  let fileContent = [];
+  let directedPings = [];
+  let nullPings = [];
+  let pings = [];
+  var useState;
+
+
+  const data = {
+    columns: [
+      {
+        label: 'Timestamp',
+        field: 'timestamp',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'MAC ID',
+        field: 'mac_id',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'RSSI',
+        field: 'rssi',
+        sort: 'asc',
+        width: 50
+      },
+      {
+        label: 'SSID',
+        field: 'ssid',
+        sort: 'asc',
+        width: 50
+      },
+    ],
+    rows: pings
+  };
+  var UniqueNames = []
+
+  if (!props.error && !props.isLoading) {
+    fileContent = props.fileContent
+    if (fileContent.length) {
+      fileContent.forEach((element, index) => {
+        if (element.frame.probes.directed.length) {
+          directedProbePingCount += element.frame.probes.directed.length
+          UniqueNames.push(element.frame.probes.directed.map(function (d) { return d.ssid; }))
+          directedPings.push(...element.frame.probes.directed)
+        }
+        if (element.frame.probes.null.length) {
+          nullProbePingCount += element.frame.probes.null.length
+          nullPings.push(...element.frame.probes.null)
+        }
+        if (element.frame.probes.null.length || element.frame.probes.directed.length) {
+          pings.push(...element.frame.probes.directed)
+          pings.push(...element.frame.probes.null)
+        }
+      })
+    }
+  }
+  var merged = [].concat.apply([], UniqueNames);
+  var names = merged.filter((item, i, ar) => ar.indexOf(item) === i);
+  const listItems = names.map((name) =>
+    <li key={name}>{name}</li>
+  );
+
   return (
-    <Container>
-      <div className="ui fitted">
-        <Label>Toggle Raw frame view</Label>
-        <Checkbox toggle onChange={props.rawFrameToggleHandler} />
-        <DatePicker
-          placeholderText="click to select date"
-          showTimeSelect
-          selected={props.piDataFileRequestName}
-          onChange={props.datePickerHandler}
-          timeFormat="h:mm aa"
-          timeIntervals={60}
-          timeCaption="time"
-          dateFormat="MMMM d, yyyy h:mm aa"
-        />
-      </div>
-      {props.error ? (
-        <Message negative onDismiss={props.handleMessageDismiss}>
-          <Message.Header>Something went wrong</Message.Header>
-          <Message.Content>{props.errorMessage}</Message.Content>
-        </Message>
-      ) : (
-        ""
-      )}
-      {props.isLoading ? (
-        <Dimmer active>
-          <Loader>Fetching Data</Loader>
-        </Dimmer>
-      ) : props.fileContent.length ? (
-        props.rawFrameToggle ? (
-          <SegmentGroup piled>
-            {props.fileContent.map((element, key) => {
-              return <Segment key={key}>{JSON.stringify(element)}</Segment>;
-              // return (
-              //   <JSONPretty
-              //     id="json-pretty"
-              //     key={key}
-              //     data={element}
-              //     style={{ fontSize: "1.1em" }}
-              //     mainStyle="padding:1em"
-              //     valueStyle="font-size:1.5em"
-              //   ></JSONPretty>
-              // );
-            })}
-          </SegmentGroup>
+
+    <Container fluid >
+      <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar.Brand href="#home"><h2>PI-SNIFF</h2></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <ButtonGroup toggle className="mb-2" onChange={props.rawFrameToggleHandler}>
+              <ToggleButton variant="light" type="checkbox">
+                Raw Frames
+               </ToggleButton>
+            </ButtonGroup>
+          </Nav>
+          <Nav className="mr-auto">
+            <h2><Badge className="mr-2" variant="light">Select Date</Badge></h2>
+            <DatePicker className="mt-2"
+              placeholderText="click to select date"
+              // showTimeSelect
+              selected={props.piDataFileRequestName}
+              onChange={props.datePickerHandler}
+              // timeFormat="h:mm aa"
+              // timeIntervals={60}
+              // timeCaption="time"
+              // minDate={moment()
+              //   .subtract(1, "week")
+              //   .toDate()}
+              dateFormat="MMMM d, yyyy"
+              maxDate={moment().toDate()}
+            />
+          </Nav>
+
+        </Navbar.Collapse>
+      </Navbar>
+      {
+        props.error ? (
+          <Modal.Dialog size="lg">
+            <Modal.Header closeButton onHide={props.handleMessageDismiss}>
+              <Modal.Title>Something went wrong</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>{props.errorMessage}</p>
+            </Modal.Body>
+          </Modal.Dialog>
         ) : (
-          <Table celled structured>
-            <Table.Header>
-              <Table.Row>
-                <Table.HeaderCell>Frame Timestamp</Table.HeaderCell>
-                <Table.HeaderCell>Directed Probes</Table.HeaderCell>
-                <Table.HeaderCell>Null Probes</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {props.fileContent.map((element, key) => {
-                return (
-                  <Table.Row key={key}>
-                    <Table.Cell>{element.timestamp}</Table.Cell>
-                    <Table.Cell>
-                      <Table>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Timestamp</Table.HeaderCell>
-                            <Table.HeaderCell>macId</Table.HeaderCell>
-                            <Table.HeaderCell>rssi</Table.HeaderCell>
-                            <Table.HeaderCell>ssid</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                          {element.frame.probes.directed.length ? (
-                            element.frame.probes.directed.map(
-                              (directedPing, index) => (
-                                <Table.Row key={index}>
-                                  <Table.Cell>
-                                    {directedPing.timestamp}
-                                  </Table.Cell>
-                                  <Table.Cell>{directedPing.mac_id}</Table.Cell>
-                                  <Table.Cell>{directedPing.rssi}</Table.Cell>
-                                  <Table.Cell>{directedPing.ssid}</Table.Cell>
-                                </Table.Row>
-                              )
-                            )
-                          ) : (
-                            <Table.Row>
-                              <Table.Cell colSpan="4">
-                                No Directed Pings in frame
-                              </Table.Cell>
-                            </Table.Row>
-                          )}
-                        </Table.Body>
-                      </Table>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Table>
-                        <Table.Header>
-                          <Table.Row>
-                            <Table.HeaderCell>Timestamp</Table.HeaderCell>
-                            <Table.HeaderCell>macId</Table.HeaderCell>
-                            <Table.HeaderCell>rssi</Table.HeaderCell>
-                          </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                          {element.frame.probes.null.length ? (
-                            element.frame.probes.null.map(
-                              (nullPings, nullIndex) => (
-                                <Table.Row key={nullIndex}>
-                                  <Table.Cell>{nullPings.timestamp}</Table.Cell>
-                                  <Table.Cell>{nullPings.mac_id}</Table.Cell>
-                                  <Table.Cell>{nullPings.rssi}</Table.Cell>
-                                </Table.Row>
-                              )
-                            )
-                          ) : (
-                            <Table.Row>
-                              <Table.Cell colSpan="3">
-                                No Null Pings in frame
-                              </Table.Cell>
-                            </Table.Row>
-                          )}
-                        </Table.Body>
-                      </Table>
-                    </Table.Cell>
-                  </Table.Row>
-                );
+            ""
+          )
+      }
+      {
+        props.isLoading ? (
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Fetching Data</span>
+          </Spinner>
+        ) : fileContent.length ? (
+          props.rawFrameToggle ? (
+            <div>
+              {fileContent.map((element, key) => {
+                return <div id="raw" className="col-12"><p> key={key}>{JSON.stringify(element)}</p></div>;
+                // return (
+                //   <JSONPretty
+                //     id="json-pretty"
+                //     key={key}
+                //     data={element}
+                //     style={{ fontSize: "1.1em" }}
+                //     mainStyle="padding:1em"
+                //     valueStyle="font-size:1.5em"
+                //   ></JSONPretty>
+                // );
               })}
-            </Table.Body>
-          </Table>
-        )
-      ) : (
-        <Header as="h3">No Content</Header>
-      )}
+            </div>
+          ) : (
+              <Container fluid>
+                <Row>
+                  <div className="col-12 order-sm-last col-md-4">
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">No.of Directed Probes</h2>
+                      <div className="card-body">
+                        <h2>{directedProbePingCount}</h2>
+                      </div>
+                    </div>
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">No.of Null Probes</h2>
+                      <div className="card-body">
+                        <h2>{nullProbePingCount}</h2>
+                      </div>
+                    </div>
+                    <div className="card">
+                      <h2 className="card-header bg-dark text-white">Unique SSID</h2>
+                      <div className="card-body">
+                        <ul><h5>{listItems}</h5></ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-12 order-sm-first col-md-8">
+                    <MDBDataTable
+                      entriesOptions={[20, 50, 100, 200, 500]}
+                      maxHeight="380px"
+                      pagesAmount={5}
+                      noBottomColumns
+                      responsive
+                      striped
+                      bordered
+                      small
+                      hover
+                      data={data}
+                      scrollX
+                      scrollY
+                      entries={20}
+                    />
+                  </div>
+                </Row>
+              </Container>
+            )
+        ) : (
+              <h1>
+                <Badge variant="dark">No Content</Badge>
+              </h1>
+            )
+      }
       {/* {console.log(props.fileContent)} */}
-    </Container>
+    </Container >
   );
 };
+
 
 export default DashboardComponent;
