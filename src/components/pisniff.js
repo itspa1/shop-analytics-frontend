@@ -1,17 +1,18 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import moment from 'moment'
-import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup, Spinner, Modal } from 'react-bootstrap';
+import { Container, Row, Navbar, Nav, Badge, ToggleButton, ButtonGroup, Spinner, Modal, Collapse, NavItem } from 'react-bootstrap';
 import { MDBDataTable } from 'mdbreact';
+import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
 
-const DashboardComponent = props => {
+const Sniff = props => {
   let directedProbePingCount = 0;
   let nullProbePingCount = 0;
   let fileContent = [];
   let directedPings = [];
   let nullPings = [];
   let pings = [];
-  var useState;
+
 
 
   const data = {
@@ -74,37 +75,6 @@ const DashboardComponent = props => {
   return (
 
     <Container fluid >
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#home"><h2>PI-SNIFF</h2></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <ButtonGroup toggle className="mb-2" onChange={props.rawFrameToggleHandler}>
-              <ToggleButton variant="light" type="checkbox">
-                Raw Frames
-               </ToggleButton>
-            </ButtonGroup>
-          </Nav>
-          <Nav className="mr-auto">
-            <h2><Badge className="mr-2" variant="light">Select Date</Badge></h2>
-            <DatePicker className="mt-2"
-              placeholderText="click to select date"
-              // showTimeSelect
-              selected={props.piDataFileRequestName}
-              onChange={props.datePickerHandler}
-              // timeFormat="h:mm aa"
-              // timeIntervals={60}
-              // timeCaption="time"
-              // minDate={moment()
-              //   .subtract(1, "week")
-              //   .toDate()}
-              dateFormat="MMMM d, yyyy"
-              maxDate={moment().toDate()}
-            />
-          </Nav>
-
-        </Navbar.Collapse>
-      </Navbar>
       {
         props.error ? (
           <Modal.Dialog size="lg">
@@ -196,4 +166,4 @@ const DashboardComponent = props => {
 };
 
 
-export default DashboardComponent;
+export default Sniff;

@@ -6,15 +6,18 @@ import Dashboard from "./containers/dashboard";
 import io from "socket.io-client";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { BrowserRouter } from 'react-router-dom';
 
 const socket = io(socketUrl);
 
 function App() {
   return (
     <SocketContext.Provider value={socket}>
-      <div className="App">
-        <Dashboard socket={socket} />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Dashboard socket={socket} />
+        </div>
+      </BrowserRouter>
     </SocketContext.Provider>
   );
 }
