@@ -1,8 +1,12 @@
 import React from "react";
 import { fetchPiData } from "../api/piData";
-import DashboardComponent from "../components/dashboard";
+import Sniff from "../components/pisniff";
 import moment from "moment";
-
+import Header from '../components/header';
+import Main from "../components/mainDashboard";
+import Vision from "../components/pivision";
+import About from "../components/about";
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -14,9 +18,15 @@ class Dashboard extends React.Component {
       errorMessage: "",
       rawFrameToggle: false,
       numberOfLines: "",
+      isNavOpen: false,
       piDataFileRequestName: moment().toDate() //"2020-02-04T15:30:00.000Z" //convert this to utc while sending the request
     };
+
+
   }
+
+
+
 
   async componentDidMount() {
     try {
@@ -88,6 +98,12 @@ class Dashboard extends React.Component {
     }
   }
 
+  toggleNav() {
+    this.setState({
+      isNavOpen: !this.state.isNavOpen
+    });
+  }
+
   rawFrameToggleHandler = (event) => {
     event.preventDefault();
     this.setState({ rawFrameToggle: !this.state.rawFrameToggle });
@@ -124,18 +140,54 @@ class Dashboard extends React.Component {
   };
 
   render() {
+    const SniffPage = () => {
+      return (
+        <Sniff
+          isLoading={this.state.isLoading}
+          fileContent={this.state.fileContent}
+          rawFrameToggle={this.state.rawFrameToggle}
+          error={this.state.error}
+          errorMessage={this.state.errorMessage}
+          piDataFileRequestName={this.state.piDataFileRequestName}
+          rawFrameToggleHandler={this.rawFrameToggleHandler}
+          datePickerHandler={this.datePickerHandler}
+          handleMessageDismiss={this.handleMessageDismiss}
+          toggleNav={this.toggleNav}
+        />
+      );
+    }
+    const MainPage = () => {
+      return (
+        <Main />
+      );
+    }
+    const VisionPage = () => {
+      return (
+        <Vision />
+      );
+    }
+    const AboutPage = () => {
+      return (
+        <About />
+      );
+    }
     return (
-      <DashboardComponent
-        isLoading={this.state.isLoading}
-        fileContent={this.state.fileContent}
-        rawFrameToggle={this.state.rawFrameToggle}
-        error={this.state.error}
-        errorMessage={this.state.errorMessage}
-        piDataFileRequestName={this.state.piDataFileRequestName}
-        rawFrameToggleHandler={this.rawFrameToggleHandler}
-        datePickerHandler={this.datePickerHandler}
-        handleMessageDismiss={this.handleMessageDismiss}
-      />
+
+      <div>
+        <Header
+          piDataFileRequestName={this.state.piDataFileRequestName}
+          rawFrameToggleHandler={this.rawFrameToggleHandler}
+          datePickerHandler={this.datePickerHandler}
+        />
+        <Switch>
+          <Route exact path='/pisniff' component={SniffPage} />
+          <Route exact path='/pivision' component={VisionPage} />
+          <Route exact path='/about' component={AboutPage} />
+          <Route path='/home' component={MainPage} />
+          <Redirect to="/home" />
+        </Switch>
+
+      </div>
     );
   }
 }
