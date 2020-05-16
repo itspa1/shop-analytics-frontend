@@ -10,7 +10,7 @@ import io from "socket.io-client";
 import MainLayout from "layouts/Main/Main.js";
 
 import "assets/scss/black-dashboard-react.scss";
-import "assets/demo/demo.css";
+import "assets/css/demo.css";
 import "assets/css/nucleo-icons.css";
 
 const socket = io(socketUrl);
