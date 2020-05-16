@@ -1,17 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import "react-datepicker/dist/react-datepicker.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { socketUrl } from "./configs/env";
+import SocketContext from "./context/socket";
 
-// import "react-json-pretty/themes/monikai.css";
+import io from "socket.io-client";
 
-import * as serviceWorker from "./serviceWorker";
+import MainLayout from "layouts/Main/Main.js";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import "assets/scss/black-dashboard-react.scss";
+import "assets/demo/demo.css";
+import "assets/css/nucleo-icons.css";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const socket = io(socketUrl);
+
+const hist = createBrowserHistory();
+
+ReactDOM.render(
+  <SocketContext.Provider value={socket}>
+    <Router history={hist}>
+      <Switch>
+        <Route path="/main" render={(props) =>
+          <MainLayout {...props} socket={socket} />} />
+        <Redirect from="/" to="/main/dashboard" />
+      </Switch>
+    </Router>
+  </SocketContext.Provider>,
+  document.getElementById("root"),
+);
