@@ -9,6 +9,13 @@ import About from "components/about.js";
 
 var routes = [
   {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Dashboard,
+    layout: "/main",
+  },
+  {
     path: "/piSniff",
     name: "Pi Sniff",
     icon: "tim-icons icon-wifi",
@@ -16,10 +23,10 @@ var routes = [
     layout: "/main",
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
+    path: "/about",
+    name: "About",
+    icon: "tim-icons icon-alert-circle-exc",
+    component: About,
     layout: "/main",
   },
   {
@@ -55,13 +62,6 @@ var routes = [
     name: "Analytics",
     icon: "tim-icons icon-chart-bar-32",
     component: Iframe,
-    layout: "/main",
-  },
-  {
-    path: "/about",
-    name: "About",
-    icon: "tim-icons icon-alert-circle-exc",
-    component: About,
     layout: "/main",
   },
 ];

@@ -12,17 +12,17 @@ class Footer extends React.Component {
       <footer className="footer">
         <Container fluid>
           <div className="copyright">
-            © {new Date().getFullYear()} made with{" "}
-            <i className="tim-icons icon-heart-2" />
-            {/* by{" "} */}
-            {/* <a
-              href="https://ksit.ac.in"
+            {/* © {new Date().getFullYear()} made with{" "}
+            <i className="tim-icons icon-heart-2" /> */}
+            by{" "}
+            <a
+              href="http://www.ksit.ac.in/"
               target="_blank"
             >
               KSIT
             </a>
             {" "}
-            for a better web. */}
+            for a better web.
           </div>
         </Container>
       </footer>

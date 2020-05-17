@@ -34,25 +34,25 @@ const Sniff = (props) => {
         label: "Timestamp",
         field: "timestamp",
         sort: "asc",
-        width: 50,
+
       },
       {
         label: "MAC ID",
         field: "mac_id",
         sort: "asc",
-        width: 50,
+
       },
       {
         label: "RSSI",
         field: "rssi",
         sort: "asc",
-        width: 50,
+
       },
       {
         label: "SSID",
         field: "ssid",
         sort: "asc",
-        width: 50,
+
       },
     ],
     rows: pings,
@@ -101,119 +101,144 @@ const Sniff = (props) => {
 
   return (
     <div className="content">
-      <Row>
-        <Col md="12">
-          <Card>
-            <CardHeader>
-              <CardTitle tag="h4">Simple Table</CardTitle>
-            </CardHeader>
-            {props.error
+
+      {props.error
+        ? (
+          <Modal.Dialog size="lg">
+            <Modal.Header closeButton onHide={props.handleMessageDismiss}>
+              <Modal.Title>Something went wrong</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>{props.errorMessage}</p>
+            </Modal.Body>
+          </Modal.Dialog>
+        )
+        : (
+          ""
+        )}
+      {props.isLoading
+        ? (
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Fetching Data</span>
+          </Spinner>
+        )
+        : probes.length
+          ? (
+            props.rawFrameToggle
               ? (
-                <Modal.Dialog size="lg">
-                  <Modal.Header closeButton onHide={props.handleMessageDismiss}>
-                    <Modal.Title>Something went wrong</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <p>{props.errorMessage}</p>
-                  </Modal.Body>
-                </Modal.Dialog>
+                <div>
+                  {probes.map((element, key) => {
+                    return <div id="raw" className="col-12">
+                      <p>
+                        key={key}>{JSON.stringify(element)}
+                      </p>
+                    </div>;
+                    // return (
+                    //   <JSONPretty
+                    //     id="json-pretty"
+                    //     key={key}
+                    //     data={element}
+                    //     style={{ fontSize: "1.1em" }}
+                    //     mainStyle="padding:1em"
+                    //     valueStyle="font-size:1.5em"
+                    //   ></JSONPretty>
+                    // );
+                  })}
+                </div>
               )
               : (
-                ""
-              )}
-            {props.isLoading
-              ? (
-                <Spinner animation="border" role="status">
-                  <span className="sr-only">Fetching Data</span>
-                </Spinner>
+
+                <div className="content">
+                  <Row>
+                    <Col lg="3">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">Select Date</h5>
+                          <CardTitle tag="h3">
+                            {/* <DatePicker className="ml-6"
+                              placeholderText="click to select date"
+                              // showTimeSelect
+                              selected={props.piDataFileRequestName}
+                              onChange={props.datePickerHandler}
+                              // timeFormat="h:mm aa"
+                              // timeIntervals={60}
+                              // timeCaption="time"
+                              // minDate={moment()
+                              //   .subtract(1, "week")
+                              //   .toDate()}
+                              dateFormat="MMMM d, yyyy"
+                              maxDate={moment().toDate()}
+                            /> */}
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">No.of Directed Probes</h5>
+                          <CardTitle tag="h3">
+                            {directedProbePingCount}
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">No.of Null Probes</h5>
+                          <CardTitle tag="h3">
+                            {nullProbePingCount}
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                    <Col lg="3">
+                      <Card className="card-chart ssid">
+                        <CardHeader>
+                          <h5 className="card-category">Unique SSID</h5>
+                          <CardTitle tag="h5" className="ssid">
+                            <ul>{listItems}</ul>
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Card>
+
+                        <MDBDataTable
+                          entriesOptions={[20, 50, 100, 200, 500]}
+                          maxHeight="325px"
+                          pagesAmount={5}
+                          noBottomColumns
+                          striped
+                          bordered
+                          hover
+                          data={data}
+                          scrollX
+                          scrollY
+                          entries={20}
+                          fixed
+
+                        />
+                      </Card>
+                    </Col>
+                  </Row>
+
+                </div>
+
+
               )
-              : probes.length
-              ? (
-                props.rawFrameToggle
-                  ? (
-                    <div>
-                      {probes.map((element, key) => {
-                        return <div id="raw" className="col-12">
-                          <p>
-                            key={key}>{JSON.stringify(element)}
-                          </p>
-                        </div>;
-                        // return (
-                        //   <JSONPretty
-                        //     id="json-pretty"
-                        //     key={key}
-                        //     data={element}
-                        //     style={{ fontSize: "1.1em" }}
-                        //     mainStyle="padding:1em"
-                        //     valueStyle="font-size:1.5em"
-                        //   ></JSONPretty>
-                        // );
-                      })}
-                    </div>
-                  )
-                  : (
-                    <Container fluid>
-                      <Row>
-                        {/* <div className="col-12 order-sm-last col-md-4">
-                          <div className="card">
-                            <h2 className="card-header bg-dark text-white">
-                              No.of Directed Probes
-                            </h2>
-                            <div className="card-body">
-                              <h2>
-                                {directedProbePingCount}
-                              </h2>
-                            </div>
-                          </div>
-                          <div className="card">
-                            <h2 className="card-header bg-dark text-white">
-                              No.of Null Probes
-                            </h2>
-                            <div className="card-body">
-                              <h2>
-                                {nullProbePingCount}
-                              </h2>
-                            </div>
-                          </div>
-                          <div className="card">
-                            <h2 className="card-header bg-dark text-white">
-                              Unique SSID
-                            </h2>
-                            <div className="card-body">
-                              <ul><h5>{listItems}</h5></ul>
-                            </div>
-                          </div>
-                        </div> */}
-                        <CardBody>
-                          <MDBDataTable
-                            entriesOptions={[20, 50, 100, 200, 500]}
-                            maxHeight="380px"
-                            pagesAmount={5}
-                            noBottomColumns
-                            responsive
-                            striped
-                            bordered
-                            small
-                            hover
-                            data={data}
-                            scrollX
-                            scrollY
-                            entries={20}
-                          />
-                        </CardBody>
-                      </Row>
-                    </Container>
-                  )
-              )
-              : (
-                <h1>
-                  <Badge variant="dark">No Content</Badge>
-                </h1>
-              )}
-            {/* {console.log(props.probes)} */}
-          </Card>
-        </Col>
-      </Row>
+          )
+          : (
+            <h1>
+              <Badge variant="dark">No Content</Badge>
+            </h1>
+          )}
+      {/* {console.log(props.probes)} */}
+
     </div>
   );
 };

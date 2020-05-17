@@ -3,15 +3,19 @@
 //
 
 .table {
-  width: 100%;
+  width: 90%;
   margin-bottom: $spacer;
   background-color: $table-bg; // Reset for nesting within parents with `background-color`.
+  margin: auto;
 
   th,
   td {
     padding: $table-cell-padding;
     vertical-align: top;
+    text-align: center;
     border-top: $table-border-width solid $table-border-color;
+    width: 120px;
+    overflow: hidden;
   }
 
   thead th {
