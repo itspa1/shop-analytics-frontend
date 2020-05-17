@@ -92,7 +92,11 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
+<<<<<<< Updated upstream
               <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+=======
+              <NavbarBrand href="#pablo" className={"mt-4"} onClick={(e) => e.preventDefault()}>
+>>>>>>> Stashed changes
                 {this.props.brandText}
               </NavbarBrand>
             </div>
@@ -110,7 +114,11 @@ class AdminNavbar extends React.Component {
               <span className="navbar-toggler-bar navbar-kebab" />
               <span className="navbar-toggler-bar navbar-kebab" />
             </button>
+<<<<<<< Updated upstream
             <Collapse navbar isOpen={this.state.collapseOpen}>
+=======
+            {/* <Collapse navbar isOpen={this.state.collapseOpen}>
+>>>>>>> Stashed changes
               <Nav className="ml-auto" navbar>
                 <InputGroup className="search-bar">
                   <Button
@@ -194,7 +202,11 @@ class AdminNavbar extends React.Component {
                 </UncontrolledDropdown>
                 <li className="separator d-lg-none" />
               </Nav>
+<<<<<<< Updated upstream
             </Collapse>
+=======
+            </Collapse> */}
+>>>>>>> Stashed changes
           </Container>
         </Navbar>
         <Modal

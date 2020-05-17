@@ -67,6 +67,7 @@ const Sniff = (props) => {
           nullProbePingCount += 1;
           nullPings.push(element.nullProbe);
           pings.push(element.nullProbe);
+<<<<<<< Updated upstream
         }
         if (element.directedProbe) {
           directedProbePingCount += 1;
@@ -74,6 +75,15 @@ const Sniff = (props) => {
           directedPings.push(element.directedProbe);
           pings.push(element.directedProbe);
         }
+=======
+        }
+        if (element.directedProbe) {
+          directedProbePingCount += 1;
+          UniqueNames.push(element.directedProbe.ssid);
+          directedPings.push(element.directedProbe);
+          pings.push(element.directedProbe);
+        }
+>>>>>>> Stashed changes
         // if (element.frame.probes.directed.length) {
         //   directedProbePingCount += element.frame.probes.directed.length;
         //   UniqueNames.push(element.frame.probes.directed.map(function (d) {
@@ -101,6 +111,7 @@ const Sniff = (props) => {
 
   return (
     <div className="content">
+<<<<<<< Updated upstream
       <Row>
         <Col md="12">
           <Card>
@@ -214,6 +225,119 @@ const Sniff = (props) => {
           </Card>
         </Col>
       </Row>
+=======
+
+      {props.error
+        ? (
+          <Modal.Dialog size="lg">
+            <Modal.Header closeButton onHide={props.handleMessageDismiss}>
+              <Modal.Title>Something went wrong</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>{props.errorMessage}</p>
+            </Modal.Body>
+          </Modal.Dialog>
+        )
+        : (
+          ""
+        )}
+      {props.isLoading
+        ? (
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Fetching Data</span>
+          </Spinner>
+        )
+        : probes.length
+          ? (
+            props.rawFrameToggle
+              ? (
+                <div>
+                  {probes.map((element, key) => {
+                    return <div id="raw" className="col-12">
+                      <p>
+                        key={key}>{JSON.stringify(element)}
+                      </p>
+                    </div>;
+                    // return (
+                    //   <JSONPretty
+                    //     id="json-pretty"
+                    //     key={key}
+                    //     data={element}
+                    //     style={{ fontSize: "1.1em" }}
+                    //     mainStyle="padding:1em"
+                    //     valueStyle="font-size:1.5em"
+                    //   ></JSONPretty>
+                    // );
+                  })}
+                </div>
+              )
+              : (
+                <div className="content">
+                  <Row>
+                    <Col lg="4">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">No.of Directed Probes</h5>
+                          <CardTitle tag="h3">
+                            {directedProbePingCount}
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                    <Col lg="4">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">No.of Null Probes</h5>
+                          <CardTitle tag="h3">
+                            {nullProbePingCount}
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                    <Col lg="4">
+                      <Card className="card-chart">
+                        <CardHeader>
+                          <h5 className="card-category">Unique SSID</h5>
+                          <CardTitle tag="h3">
+                            <ul>{listItems}</ul>
+                          </CardTitle>
+                        </CardHeader>
+                      </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="12">
+                      <Card>
+                        <MDBDataTable
+                          entriesOptions={[20, 50, 100, 200, 500]}
+                          maxHeight="325px"
+                          pagesAmount={5}
+                          noBottomColumns
+                          responsive
+                          striped
+                          bordered
+                          hover
+                          data={data}
+                          scrollX
+                          scrollY
+                          entries={20}
+                        />
+                      </Card>
+                    </Col>
+                  </Row>
+
+                </div>
+
+              )
+          )
+          : (
+            <h1>
+              <Badge variant="dark">No Content</Badge>
+            </h1>
+          )}
+      {/* {console.log(props.probes)} */}
+
+>>>>>>> Stashed changes
     </div>
   );
 };

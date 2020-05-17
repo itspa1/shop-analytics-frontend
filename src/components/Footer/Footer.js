@@ -12,17 +12,29 @@ class Footer extends React.Component {
       <footer className="footer">
         <Container fluid>
           <div className="copyright">
+<<<<<<< Updated upstream
             © {new Date().getFullYear()} made with{" "}
             <i className="tim-icons icon-heart-2" />
             {/* by{" "} */}
             {/* <a
               href="https://ksit.ac.in"
+=======
+            {/* © {new Date().getFullYear()} made with{" "}
+            <i className="tim-icons icon-heart-2" /> */}
+            by{" "}
+            <a
+              href="http://www.ksit.ac.in/"
+>>>>>>> Stashed changes
               target="_blank"
             >
               KSIT
             </a>
             {" "}
+<<<<<<< Updated upstream
             for a better web. */}
+=======
+            for a better web.
+>>>>>>> Stashed changes
           </div>
         </Container>
       </footer>
