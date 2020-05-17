@@ -122,15 +122,9 @@ class Main extends React.Component {
               <Redirect from="*" to="/main/dashboard" />
             </Switch>
             {// we don't want the Footer to be rendered on map page
-<<<<<<< Updated upstream
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (
               <Footer fluid />
             )}
-=======
-              this.props.location.pathname.indexOf("maps") !== -1 ? null : (
-                <Footer fluid />
-              )}
->>>>>>> Stashed changes
           </div>
         </div>
       </>
