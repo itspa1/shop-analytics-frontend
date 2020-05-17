@@ -9,16 +9,6 @@ import About from "components/about.js";
 
 var routes = [
   {
-<<<<<<< Updated upstream
-=======
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
-    layout: "/main",
-  },
-  {
->>>>>>> Stashed changes
     path: "/piSniff",
     name: "Pi Sniff",
     icon: "tim-icons icon-wifi",
@@ -26,17 +16,10 @@ var routes = [
     layout: "/main",
   },
   {
-<<<<<<< Updated upstream
     path: "/dashboard",
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
-=======
-    path: "/about",
-    name: "About",
-    icon: "tim-icons icon-alert-circle-exc",
-    component: About,
->>>>>>> Stashed changes
     layout: "/main",
   },
   {
@@ -74,7 +57,6 @@ var routes = [
     component: Iframe,
     layout: "/main",
   },
-<<<<<<< Updated upstream
   {
     path: "/about",
     name: "About",
@@ -82,8 +64,6 @@ var routes = [
     component: About,
     layout: "/main",
   },
-=======
->>>>>>> Stashed changes
 ];
 
 export default routes;
