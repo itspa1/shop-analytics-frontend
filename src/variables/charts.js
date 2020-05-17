@@ -2,10 +2,6 @@
 // // // Chart variables
 // #############################
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 // chartExample1 and chartExample2 options
 let chart1_2_options = {
   maintainAspectRatio: false,
@@ -84,21 +80,6 @@ let chartExample1 = {
         "OCT",
         "NOV",
         "DEC",
-<<<<<<< Updated upstream
-=======
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC",
->>>>>>> Stashed changes
       ],
       datasets: [
         {
@@ -116,11 +97,7 @@ let chartExample1 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-<<<<<<< Updated upstream
           data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
-=======
-          data: [100, 70, 90, 70, 85, 60, 100, 60, 90, 80, 110, 100, 100, 70, 90, 70, 85, 60, 100, 60, 90, 80, 110, 100],
->>>>>>> Stashed changes
         },
       ],
     };
@@ -431,7 +408,3 @@ module.exports = {
   chartExample3, // in src/views/Dashboard.js
   chartExample4, // in src/views/Dashboard.js
 };
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
