@@ -197,7 +197,7 @@ const Sniff = (props) => {
                       <Card className="card-chart ssid">
                         <CardHeader>
                           <h5 className="card-category">Unique SSID</h5>
-                          <CardTitle tag="h5" className="ssid">
+                          <CardTitle tag="p" className="ssid">
                             <ul>{listItems}</ul>
                           </CardTitle>
                         </CardHeader>
@@ -206,7 +206,7 @@ const Sniff = (props) => {
                   </Row>
                   <Row>
                     <Col md="12">
-                      <Card>
+                      <Card className="pitable">
 
                         <MDBDataTable
                           entriesOptions={[20, 50, 100, 200, 500]}

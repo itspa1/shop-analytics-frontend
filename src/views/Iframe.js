@@ -52,7 +52,7 @@ class IframeComponent extends React.Component {
       <div className="content">
         <Row>
           <Col md="12">
-            <Card>
+            <Card className="card-chart">
               <Iframe url={url} frameBorder="0" />
             </Card>
           </Col>

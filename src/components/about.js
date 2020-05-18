@@ -83,11 +83,11 @@ function About() {
                   <div class="card card-body">
                     <blockquote class="blockquote">
                       <p class="mb-0" className="text-success">
-                        Don’t try to tell the customer what he wants. If you want to be smart,
-                        be smart in the shower. Then get out, go to work, and serve the customer!
+                        Just having satisfied customers isn’t good enough anymore.
+                        If you really want a booming business, you have to create raving fans.
               </p>
                       <footer class="blockquote-footer">
-                        Anna Segova
+                        Mollie Beck, Founder, Continue Good
               </footer>
                     </blockquote>
                   </div>
