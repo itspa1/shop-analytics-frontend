@@ -27,7 +27,7 @@ class PiSniff extends React.Component {
         const contextValue = useContext(SocketContext);
       };
       const socket = this.context;
-      //   console.log(socket);
+      // console.log(socket);
       socket.on("newData", this.socketDataCallback);
       // const response = await fetchPiData("2020-02-04T15:30:00.000Z");
       let startTime = moment(this.state.piDataFileRequestName).toISOString();

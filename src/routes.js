@@ -6,6 +6,7 @@ import UserProfile from "views/UserProfile.js";
 import PiSniff from "views/PiSniff.js";
 import Iframe from "views/Iframe.js";
 import About from "components/about.js";
+import DebugFrame from "views/DebugFrame";
 
 var routes = [
   {
@@ -55,6 +56,13 @@ var routes = [
     name: "Analytics",
     icon: "tim-icons icon-chart-bar-32",
     component: Iframe,
+    layout: "/main",
+  },
+  {
+    path: "/debug",
+    name: "Debug Camera",
+    icon: "tim-icons icon-chart-bar-32",
+    component: DebugFrame,
     layout: "/main",
   },
   {
