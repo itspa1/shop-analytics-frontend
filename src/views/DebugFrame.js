@@ -33,18 +33,15 @@ class DebugFrame extends React.Component {
   toggleDebugFrame = (e) => {
     e.preventDefault();
     let currentDebugValue = this.state.debug;
-    console.log(this.state.socket.emit("toggleDebug", currentDebugValue));
-    this.state.socket.send("toggleDebug", currentDebugValue);
-    if (currentDebugValue) {
-      this.state.socket.removeAllListeners("debugFrame");
-    }
+    let nextDebugValue = !currentDebugValue;
+    this.state.socket.emit("toggleDebug", nextDebugValue);
     this.setState({
-      debug: !this.state.debug,
+      debug: nextDebugValue,
+      imageData: "",
     });
   };
 
   debugFrameCallback = (data) => {
-    // console.log(data);
     this.setState({ imageData: data });
   };
 
@@ -67,7 +64,7 @@ class DebugFrame extends React.Component {
           type="radio"
         />
         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-          DEBUG
+          DEBUG MODE
         </span>
         <span className="d-block d-sm-none">
           <i className="tim-icons icon-single-02" />
