@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import MainNavbar from "components/Navbars/MainNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
@@ -83,7 +83,7 @@ class Main extends React.Component {
     for (let i = 0; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path,
+          routes[i].layout + routes[i].path
         ) !== -1
       ) {
         return routes[i].name;
@@ -111,7 +111,7 @@ class Main extends React.Component {
             ref="mainPanel"
             data={this.state.backgroundColor}
           >
-            <AdminNavbar
+            <MainNavbar
               {...this.props}
               brandText={this.getBrandText(this.props.location.pathname)}
               toggleSidebar={this.toggleSidebar}
@@ -122,9 +122,9 @@ class Main extends React.Component {
               <Redirect from="*" to="/main/dashboard" />
             </Switch>
             {// we don't want the Footer to be rendered on map page
-              this.props.location.pathname.indexOf("maps") !== -1 ? null : (
-                <Footer fluid />
-              )}
+            this.props.location.pathname.indexOf("maps") !== -1 ? null : (
+              <Footer fluid />
+            )}
           </div>
         </div>
       </>

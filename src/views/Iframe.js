@@ -1,16 +1,7 @@
 import React from "react";
 import Iframe from "react-iframe";
 
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-} from "reactstrap";
+import { Card, Row, Col } from "reactstrap";
 
 class IframeComponent extends React.Component {
   //   constructor(props) {
@@ -53,8 +44,13 @@ class IframeComponent extends React.Component {
         <Row>
           <Col md="12">
             <Card>
-              <Iframe url={url} frameBorder="0" width="100%" height="600px"
-                position="relative" />
+              <Iframe
+                url={url}
+                frameBorder="0"
+                width="100%"
+                height="600px"
+                position="relative"
+              />
             </Card>
           </Col>
         </Row>

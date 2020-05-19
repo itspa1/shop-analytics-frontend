@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 
 function About() {
@@ -47,25 +46,30 @@ function About() {
         <Col md="12">
           <Card>
             <CardHeader className="mb-5">
-              <CardTitle tag="h3">
-                About Us
-                  </CardTitle>
+              <CardTitle tag="h3">About Us</CardTitle>
             </CardHeader>
             <CardBody>
               <div class="row row-content align-items-center">
                 <div class="col-12 col-sm-6">
                   <h2>Our Project</h2>
                   <p>
-                    Business Optimization is a process of measuring the efficiency, productivity and performance of a business
-                    and finding ways to improve those measures.This project aims to gather precise insights and data by using
-                    WiFi probe sniffing and cameras. In WiFi probe sniffing, wifi enabled devices openly broadcast information
-                    such as time-stamp, MAC address, RSSI signal strength and SSID names of previously associated APs. Using
-                    Raspberry Pi’s WiFi module in Monitor mode, probe data is collected and stored, this data can help us
-                    identify the number of customers or people in a region. With cameras, we can track the activity of
-                    roaming users with better accuracy. This information is vital for businesses practices for continuous
-                    iterative exploration and investigation of past business performance, to gain insight and drive business
-                    planning based on data and statistical methods.
-          </p>
+                    Business Optimization is a process of measuring the
+                    efficiency, productivity and performance of a business and
+                    finding ways to improve those measures.This project aims to
+                    gather precise insights and data by using WiFi probe
+                    sniffing and cameras. In WiFi probe sniffing, wifi enabled
+                    devices openly broadcast information such as time-stamp, MAC
+                    address, RSSI signal strength and SSID names of previously
+                    associated APs. Using Raspberry Pi’s WiFi module in Monitor
+                    mode, probe data is collected and stored, this data can help
+                    us identify the number of customers or people in a region.
+                    With cameras, we can track the activity of roaming users
+                    with better accuracy. This information is vital for
+                    businesses practices for continuous iterative exploration
+                    and investigation of past business performance, to gain
+                    insight and drive business planning based on data and
+                    statistical methods.
+                  </p>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="card">
@@ -83,17 +87,17 @@ function About() {
                   <div class="card card-body">
                     <blockquote class="blockquote">
                       <p class="mb-0" className="text-success">
-                        Just having satisfied customers isn’t good enough anymore.
-                        If you really want a booming business, you have to create raving fans.
-              </p>
+                        Just having satisfied customers isn’t good enough
+                        anymore. If you really want a booming business, you have
+                        to create raving fans.
+                      </p>
                       <footer class="blockquote-footer">
                         Mollie Beck, Founder, Continue Good
-              </footer>
+                      </footer>
                     </blockquote>
                   </div>
                 </div>
               </div>
-
             </CardBody>
           </Card>
         </Col>

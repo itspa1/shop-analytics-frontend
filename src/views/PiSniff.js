@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+// import { useContext } from "react";
 import { fetchPiData } from "../api/piData";
 import Sniff from "../components/pisniff";
 import moment from "moment";
@@ -23,9 +23,9 @@ class PiSniff extends React.Component {
 
   async componentDidMount() {
     try {
-      const Socket = () => {
-        const contextValue = useContext(SocketContext);
-      };
+      // const Socket = () => {
+      //   const contextValue = useContext(SocketContext);
+      // };
       const socket = this.context;
       // console.log(socket);
       socket.on("newData", this.socketDataCallback);
@@ -69,7 +69,7 @@ class PiSniff extends React.Component {
         moment(date)
           .startOf("day")
           .toISOString(),
-        numberOfLines,
+        numberOfLines
       );
       let probes = response.data.probes ? response.data.probes : [];
       //   fileContent = fileContent.map((element) => {
@@ -103,9 +103,8 @@ class PiSniff extends React.Component {
     let numberOfLines = this.state.numberOfLines;
     // console.log(moment(date).toISOString());
     if (!!date) {
-      this.setState(
-        { piDataFileRequestName: date, isLoading: true },
-        () => this._fetchPiData(date, numberOfLines),
+      this.setState({ piDataFileRequestName: date, isLoading: true }, () =>
+        this._fetchPiData(date, numberOfLines)
       );
     }
   };

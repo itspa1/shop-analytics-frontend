@@ -3,24 +3,9 @@ import React from "react";
 import classNames from "classnames";
 
 // reactstrap components
-import {
-  Button,
-  Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Input,
-  InputGroup,
-  NavbarBrand,
-  Navbar,
-  NavLink,
-  Nav,
-  Container,
-  Modal,
-} from "reactstrap";
+import { Input, NavbarBrand, Navbar, Container, Modal } from "reactstrap";
 
-class AdminNavbar extends React.Component {
+class MainNavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -92,7 +77,11 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
-              <NavbarBrand href="#pablo" className={"mt-4"} onClick={(e) => e.preventDefault()}>
+              <NavbarBrand
+                href="#pablo"
+                className={"mt-4"}
+                onClick={(e) => e.preventDefault()}
+              >
                 {this.props.brandText}
               </NavbarBrand>
             </div>
@@ -220,4 +209,4 @@ class AdminNavbar extends React.Component {
   }
 }
 
-export default AdminNavbar;
+export default MainNavBar;
