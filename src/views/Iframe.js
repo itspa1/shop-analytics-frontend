@@ -53,7 +53,8 @@ class IframeComponent extends React.Component {
         <Row>
           <Col md="12">
             <Card>
-              <Iframe url={url} frameBorder="0" />
+              <Iframe url={url} frameBorder="0" width="100%" height="600px"
+                position="relative" />
             </Card>
           </Col>
         </Row>
