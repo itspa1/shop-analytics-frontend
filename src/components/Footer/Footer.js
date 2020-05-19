@@ -14,15 +14,6 @@ class Footer extends React.Component {
           <div className="copyright">
             © {new Date().getFullYear()} made with{" "}
             <i className="tim-icons icon-heart-2" />
-            {/* by{" "} */}
-            {/* <a
-              href="https://ksit.ac.in"
-              target="_blank"
-            >
-              KSIT
-            </a>
-            {" "}
-            for a better web. */}
           </div>
         </Container>
       </footer>
