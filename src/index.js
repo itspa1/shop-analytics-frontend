@@ -23,7 +23,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/main" render={(props) =>
           <MainLayout {...props} socket={socket} />} />
-        <Redirect from="/" to="/main/dashboard" />
+        <Redirect from="/" to="/main/piSniff" />
       </Switch>
     </Router>
   </SocketContext.Provider>,

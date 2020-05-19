@@ -1,17 +1,9 @@
-import Dashboard from "views/Dashboard.js";
 import PiSniff from "views/PiSniff.js";
 import Iframe from "views/Iframe.js";
 import About from "components/about.js";
 import DebugFrame from "views/DebugFrame";
 
 var routes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    icon: "tim-icons icon-chart-pie-36",
-    component: Dashboard,
-    layout: "/main",
-  },
   {
     path: "/piSniff",
     name: "Pi Sniff",
