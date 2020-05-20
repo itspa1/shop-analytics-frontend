@@ -17,7 +17,7 @@ class PiSniff extends React.Component {
       rawFrameToggle: false,
       numberOfLines: "",
       isNavOpen: false,
-      piDataFileRequestName: "2020-02-12T12:37:04.000Z", //moment().toDate(), //"2020-02-04T15:30:00.000Z" //convert this to utc while sending the request
+      piDataFileRequestName: moment().startOf("day").toDate(), //"2020-02-12T12:37:04.000Z"//"2020-02-04T15:30:00.000Z" //convert this to utc while sending the request
     };
   }
 
@@ -69,7 +69,7 @@ class PiSniff extends React.Component {
         moment(date)
           .startOf("day")
           .toISOString(),
-        numberOfLines
+        numberOfLines,
       );
       let probes = response.data.probes ? response.data.probes : [];
       //   fileContent = fileContent.map((element) => {
@@ -103,8 +103,9 @@ class PiSniff extends React.Component {
     let numberOfLines = this.state.numberOfLines;
     // console.log(moment(date).toISOString());
     if (!!date) {
-      this.setState({ piDataFileRequestName: date, isLoading: true }, () =>
-        this._fetchPiData(date, numberOfLines)
+      this.setState(
+        { piDataFileRequestName: date, isLoading: true },
+        () => this._fetchPiData(date, numberOfLines),
       );
     }
   };
@@ -114,15 +115,36 @@ class PiSniff extends React.Component {
   };
 
   socketDataCallback = (data) => {
-    // console.log(data);
     //append the incoming new data on the socket to the existing state which will then re render the component with the new state
     if (
       moment(data.timestamp, "YYYY-MM-DDTHH:mm:ssZ")
         .startOf("day")
         .isSame(moment(this.state.piDataFileRequestName).startOf("day"))
     ) {
+      let deviceMacId = data.deviceMacId;
+      let probes = [];
+      let object = data.frame.probes;
+      // data.frame.probes.forEach((object) => {
+      if (object.directed && object.directed.length) {
+        let directedProbes = object.directed.map((probe) => ({
+          deviceMacId,
+          directedProbe: probe,
+          nullProbe: null,
+        }));
+        probes.push(...directedProbes);
+      }
+      if (object.null && object.null.length) {
+        let nullProbes = object.null.map((probe) => ({
+          deviceMacId,
+          nullProbe: probe,
+          directedProbe: null,
+        }));
+        probes.push(...nullProbes);
+      }
+      // });
+      // const probes = data.frame.probes;
       this.setState({
-        probes: [...this.state.probes, data],
+        probes: [...this.state.probes, ...probes],
         error: false,
         errorMessage: "",
       });
