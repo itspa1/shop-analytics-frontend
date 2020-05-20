@@ -3,7 +3,7 @@
 //
 
 .table {
-  width: 90%;
+  width: 100%;
   margin-bottom: $spacer;
   background-color: $table-bg; // Reset for nesting within parents with `background-color`.
   margin: auto;
@@ -14,7 +14,7 @@
     vertical-align: top;
     text-align: center;
     border-top: $table-border-width solid $table-border-color;
-    width: 120px;
+    width: 200px;
     overflow: hidden;
   }
 
@@ -191,5 +191,5 @@
 }
 
 .pitable{
-  padding: 30px;
+  padding: 10px;
 }
