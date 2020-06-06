@@ -20,7 +20,7 @@ var routes = [
   },
   {
     path: "/debug",
-    name: "Debug Camera",
+    name: "Camera Preview",
     icon: "tim-icons icon-chart-bar-32",
     component: DebugFrame,
     layout: "/main",
@@ -32,7 +32,6 @@ var routes = [
     component: About,
     layout: "/main",
   },
-
 ];
 
 export default routes;
