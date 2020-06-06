@@ -50,9 +50,47 @@ function About() {
                     <h3 className="card-header bg-dark text-white">Our Team</h3>
                     <div className="card-body">
                       <ul className="list-unstyled">
-                        <li>Pavan Kumar D</li>
-                        <li>Ruthvik B.R</li>
-                        <li>Rakesh Srivatsav V</li>
+                        <li>
+                          <a href="https://itspavan.dev" target="_blank">
+                            Pavan Kumar D
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://git-ruthvik.github.io"
+                            target="_blank"
+                          >
+                            Ruthvik B.R
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://www.linkedin.com/in/rakesh-srivatsav-707a4214b"
+                            target="_blank"
+                          >
+                            Rakesh Srivatsav V
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <h3 className="card-header bg-dark text-white">
+                      Guide/Mentor
+                    </h3>
+                    <div className="card-body">
+                      <ul className="list-unstyled">
+                        <li>
+                          <a href="https://rprustagi.com" target="_blank">
+                            Dr Ram P Rustagi
+                          </a>
+                        </li>
+                        <li>
+                          Jagdish S Verma, Director, <a
+                            href="http://www.connoiseur.com/"
+                            target="_blank"
+                          >
+                            Connoiseur electronics
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </div>
