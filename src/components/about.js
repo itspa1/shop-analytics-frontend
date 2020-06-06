@@ -84,7 +84,7 @@ function About() {
                           </a>
                         </li>
                         <li>
-                          Jagdish S Verma, Director, <a
+                          Jagdish S Varma, Director, <a
                             href="http://www.connoiseur.com/"
                             target="_blank"
                           >
