@@ -30,9 +30,19 @@ function About() {
                     businesses practices for continuous iterative exploration
                     and investigation of past business performance, to gain
                     insight and drive business planning based on data and
-                    statistical methods.<br></br><br></br>
-                    Check Out our blog,<a href="https://pisniff.wordpress.com/"> Click here </a> <br></br>
-                    And complete code on <a href="https://github.com/Impeekay/shop-analytics-pi">GitHub</a>
+                    statistical methods.<br></br>
+                    <br></br>
+                    Check Out our blog,<a
+                      href="https://pisniff.wordpress.com/"
+                    >
+                      Click here
+                    </a>
+                    <br></br>
+                    And complete code on <a
+                      href="https://github.com/Impeekay/shop-analytics-pi"
+                    >
+                      GitHub
+                    </a>
                   </p>
                 </div>
                 <div className="col-12 col-sm-6">
@@ -40,7 +50,7 @@ function About() {
                     <h3 className="card-header bg-dark text-white">Our Team</h3>
                     <div className="card-body">
                       <ul className="list-unstyled">
-                        <li>Pavan kumar D</li>
+                        <li>Pavan Kumar D</li>
                         <li>Ruthvik B.R</li>
                         <li>Rakesh Srivatsav V</li>
                       </ul>
@@ -51,7 +61,8 @@ function About() {
                   <div className="card card-body">
                     <blockquote className="blockquote">
                       <p className="mb-0 text-success">
-                        Data is what you need to do ANALYTICS.<br></br>Information is what you need to do BUSINESS.
+                        Data is what you need to do ANALYTICS.<br>
+                        </br>Information is what you need to do BUSINESS.
                       </p>
                       <footer className="blockquote-footer">
                         Jhon Owen

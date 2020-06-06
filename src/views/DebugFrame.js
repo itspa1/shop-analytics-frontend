@@ -65,7 +65,7 @@ class DebugFrame extends React.Component {
             type="radio"
           />
           <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-            DEBUG MODE
+            TOGGLE PREVIEW
           </span>
           <span className="d-block d-sm-none">
             <i className="tim-icons icon-single-02" />
