@@ -21,7 +21,7 @@ var routes = [
   {
     path: "/debug",
     name: "Camera Preview",
-    icon: "tim-icons icon-chart-bar-32",
+    icon: "tim-icons icon-camera-18",
     component: DebugFrame,
     layout: "/main",
   },
