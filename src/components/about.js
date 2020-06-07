@@ -34,12 +34,16 @@ function About() {
                     <br></br>
                     Check Out our blog,<a
                       href="https://pisniff.wordpress.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Click here
                     </a>
                     <br></br>
                     And complete code on <a
                       href="https://github.com/Impeekay/shop-analytics-pi"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       GitHub
                     </a>
@@ -51,7 +55,11 @@ function About() {
                     <div className="card-body">
                       <ul className="list-unstyled">
                         <li>
-                          <a href="https://itspavan.dev" target="_blank">
+                          <a
+                            href="https://itspavan.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             Pavan Kumar D
                           </a>
                         </li>
@@ -59,6 +67,7 @@ function About() {
                           <a
                             href="https://git-ruthvik.github.io"
                             target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Ruthvik B.R
                           </a>
@@ -67,6 +76,7 @@ function About() {
                           <a
                             href="https://www.linkedin.com/in/rakesh-srivatsav-707a4214b"
                             target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Rakesh Srivatsav V
                           </a>
@@ -79,7 +89,11 @@ function About() {
                     <div className="card-body">
                       <ul className="list-unstyled">
                         <li>
-                          <a href="https://rprustagi.com" target="_blank">
+                          <a
+                            href="https://rprustagi.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             Dr Ram P Rustagi
                           </a>
                         </li>
@@ -87,6 +101,7 @@ function About() {
                           Jagdish S Varma, Director, <a
                             href="http://www.connoiseur.com/"
                             target="_blank"
+                            rel="noopener noreferrer"
                           >
                             Connoiseur electronics
                           </a>
